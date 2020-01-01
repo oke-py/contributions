@@ -1,0 +1,38 @@
+{
+  user(login: "oke-py") {
+    contributionsCollection {
+      commitContributionsByRepository {
+        contributions {
+          totalCount
+        }
+        repository {
+          nameWithOwner
+        }
+      }
+      issueContributionsByRepository {
+        contributions {
+          totalCount
+        }
+        repository {
+          nameWithOwner
+        }
+      }
+      pullRequestContributionsByRepository {
+        contributions {
+          totalCount
+        }
+        repository {
+          nameWithOwner
+        }
+      }
+      pullRequestReviewContributionsByRepository {
+        contributions {
+          totalCount
+        }
+        repository {
+          nameWithOwner
+        }
+      }
+    }
+  }
+}
