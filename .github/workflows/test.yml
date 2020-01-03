@@ -1,4 +1,4 @@
-name: lint
+name: test
 
 on:
   pull_request:
@@ -35,3 +35,21 @@ jobs:
       -
         name: Run gosec
         run: make sec
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v1
+      -
+        name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13.x
+      -
+        name: Run test
+        run: make test
+      -
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
