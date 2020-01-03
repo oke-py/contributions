@@ -65,14 +65,16 @@ func TestConvert(t *testing.T) {
 		},
 	}
 
-	expected := map[string]AggregatedContributionsCollection{
-		"kubernetes/website": {
+	expected := []AggregatedContributionsCollection{
+		{
+			Repository:             "kubernetes/website",
 			CommitCount:            2,
 			IssueCount:             3,
 			PullRequestCount:       5,
 			PullRequestReviewCount: 5,
 		},
-		"kubernetes/kubernetes": {
+		{
+			Repository:             "kubernetes/kubernetes",
 			CommitCount:            0,
 			IssueCount:             1,
 			PullRequestCount:       1,

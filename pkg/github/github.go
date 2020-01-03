@@ -48,6 +48,7 @@ type ContributionsCollection struct {
 
 // AggregatedContributionsCollection has contribution count by type.
 type AggregatedContributionsCollection struct {
+	Repository             string
 	CommitCount            int
 	IssueCount             int
 	PullRequestCount       int
@@ -85,52 +86,62 @@ func GetContributions() ContributionsCollection {
 }
 
 // Convert transforms GraphQL response to map of AggregatedContributionsCollection.
-func (c ContributionsCollection) Convert() map[string]AggregatedContributionsCollection {
-	collection := make(map[string]AggregatedContributionsCollection)
+func (c ContributionsCollection) Convert() []AggregatedContributionsCollection {
+	m := make(map[string]AggregatedContributionsCollection)
 
 	for _, v := range c.CommitContributionsByRepository {
-		if v2, ok := collection[string(v.Repository.NameWithOwner)]; ok {
+		if v2, ok := m[string(v.Repository.NameWithOwner)]; ok {
 			v2.CommitCount = int(v.Contributions.TotalCount)
-			collection[string(v.Repository.NameWithOwner)] = v2
+			m[string(v.Repository.NameWithOwner)] = v2
 		} else {
-			collection[string(v.Repository.NameWithOwner)] = AggregatedContributionsCollection{
+			m[string(v.Repository.NameWithOwner)] = AggregatedContributionsCollection{
+				Repository:  string(v.Repository.NameWithOwner),
 				CommitCount: int(v.Contributions.TotalCount),
 			}
 		}
 	}
 
 	for _, v := range c.IssueContributionsByRepository {
-		if v2, ok := collection[string(v.Repository.NameWithOwner)]; ok {
+		if v2, ok := m[string(v.Repository.NameWithOwner)]; ok {
 			v2.IssueCount = int(v.Contributions.TotalCount)
-			collection[string(v.Repository.NameWithOwner)] = v2
+			m[string(v.Repository.NameWithOwner)] = v2
 		} else {
-			collection[string(v.Repository.NameWithOwner)] = AggregatedContributionsCollection{
+			m[string(v.Repository.NameWithOwner)] = AggregatedContributionsCollection{
+				Repository: string(v.Repository.NameWithOwner),
 				IssueCount: int(v.Contributions.TotalCount),
 			}
 		}
 	}
 
 	for _, v := range c.PullRequestContributionsByRepository {
-		if v2, ok := collection[string(v.Repository.NameWithOwner)]; ok {
+		if v2, ok := m[string(v.Repository.NameWithOwner)]; ok {
 			v2.PullRequestCount = int(v.Contributions.TotalCount)
-			collection[string(v.Repository.NameWithOwner)] = v2
+			m[string(v.Repository.NameWithOwner)] = v2
 		} else {
-			collection[string(v.Repository.NameWithOwner)] = AggregatedContributionsCollection{
+			m[string(v.Repository.NameWithOwner)] = AggregatedContributionsCollection{
+				Repository:       string(v.Repository.NameWithOwner),
 				PullRequestCount: int(v.Contributions.TotalCount),
 			}
 		}
 	}
 
 	for _, v := range c.PullRequestReviewContributionsByRepository {
-		if v2, ok := collection[string(v.Repository.NameWithOwner)]; ok {
+		if v2, ok := m[string(v.Repository.NameWithOwner)]; ok {
 			v2.PullRequestReviewCount = int(v.Contributions.TotalCount)
-			collection[string(v.Repository.NameWithOwner)] = v2
+			m[string(v.Repository.NameWithOwner)] = v2
 		} else {
-			collection[string(v.Repository.NameWithOwner)] = AggregatedContributionsCollection{
+			m[string(v.Repository.NameWithOwner)] = AggregatedContributionsCollection{
+				Repository:             string(v.Repository.NameWithOwner),
 				PullRequestReviewCount: int(v.Contributions.TotalCount),
 			}
 		}
 	}
 
-	return collection
+	s := make([]AggregatedContributionsCollection, 0)
+
+	for _, v := range m {
+		s = append(s, v)
+	}
+
+	return s
 }
