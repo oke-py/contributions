@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"sort"
 	"time"
 
 	"github.com/shurcooL/githubv4"
@@ -90,14 +91,9 @@ func (c ContributionsCollection) Convert() []AggregatedContributionsCollection {
 	m := make(map[string]AggregatedContributionsCollection)
 
 	for _, v := range c.CommitContributionsByRepository {
-		if v2, ok := m[string(v.Repository.NameWithOwner)]; ok {
-			v2.CommitCount = int(v.Contributions.TotalCount)
-			m[string(v.Repository.NameWithOwner)] = v2
-		} else {
-			m[string(v.Repository.NameWithOwner)] = AggregatedContributionsCollection{
-				Repository:  string(v.Repository.NameWithOwner),
-				CommitCount: int(v.Contributions.TotalCount),
-			}
+		m[string(v.Repository.NameWithOwner)] = AggregatedContributionsCollection{
+			Repository:  string(v.Repository.NameWithOwner),
+			CommitCount: int(v.Contributions.TotalCount),
 		}
 	}
 
@@ -142,6 +138,8 @@ func (c ContributionsCollection) Convert() []AggregatedContributionsCollection {
 	for _, v := range m {
 		s = append(s, v)
 	}
+
+	sort.SliceStable(s, func(i, j int) bool { return s[i].Repository < s[j].Repository })
 
 	return s
 }

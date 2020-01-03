@@ -62,10 +62,25 @@ func TestConvert(t *testing.T) {
 					NameWithOwner: "kubernetes/website",
 				},
 			},
+			{
+				Contributions: contributions{
+					TotalCount: 1,
+				},
+				Repository: repository{
+					NameWithOwner: "oke-py/npm-audit-action",
+				},
+			},
 		},
 	}
 
 	expected := []AggregatedContributionsCollection{
+		{
+			Repository:             "kubernetes/kubernetes",
+			CommitCount:            0,
+			IssueCount:             1,
+			PullRequestCount:       1,
+			PullRequestReviewCount: 0,
+		},
 		{
 			Repository:             "kubernetes/website",
 			CommitCount:            2,
@@ -74,11 +89,11 @@ func TestConvert(t *testing.T) {
 			PullRequestReviewCount: 5,
 		},
 		{
-			Repository:             "kubernetes/kubernetes",
+			Repository:             "oke-py/npm-audit-action",
 			CommitCount:            0,
-			IssueCount:             1,
-			PullRequestCount:       1,
-			PullRequestReviewCount: 0,
+			IssueCount:             0,
+			PullRequestCount:       0,
+			PullRequestReviewCount: 1,
 		},
 	}
 
