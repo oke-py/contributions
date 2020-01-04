@@ -63,18 +63,17 @@ var query struct {
 }
 
 // GetContributions get GraphQL response from GitHub GraphQL API v4.
-func GetContributions() ContributionsCollection {
+func GetContributions(user string, from time.Time, to time.Time) ContributionsCollection {
 	src := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: os.Getenv("GITHUB_TOKEN")},
 	)
 	httpClient := oauth2.NewClient(context.Background(), src)
 	client := githubv4.NewClient(httpClient)
 
-	loc, _ := time.LoadLocation("Asia/Tokyo")
 	variables := map[string]interface{}{
-		"user": githubv4.String("oke-py"),
-		"from": githubv4.DateTime{Time: time.Date(2019, 10, 1, 0, 0, 0, 0, loc)},
-		"to":   githubv4.DateTime{Time: time.Date(2019, 11, 1, 0, 0, 0, 0, loc)},
+		"user": githubv4.String(user),
+		"from": githubv4.DateTime{Time: from},
+		"to":   githubv4.DateTime{Time: to},
 	}
 
 	err := client.Query(context.Background(), &query, variables)
