@@ -53,5 +53,5 @@ func main() {
 		}
 	}
 
-	exporter.WriteMarkdown(github.GetContributions(*user, from, to).Convert())
+	fmt.Println(exporter.WriteMarkdown(github.GetContributions(*user, from, to).Convert()))
 }

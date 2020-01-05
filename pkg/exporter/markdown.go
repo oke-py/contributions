@@ -2,23 +2,21 @@ package exporter
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/oke-py/contributions/pkg/github"
 )
 
 // WriteMarkdown convert array of contributions collection to markdown.
-func WriteMarkdown(c []github.AggregatedContributionsCollection) {
+func WriteMarkdown(c []github.AggregatedContributionsCollection) string {
 	header := heredoc.Doc(`
 		| Repository                     | Commits | Issues  | PRs     | Reviews |
 		| ------------------------------ | ------: | ------: | ------: | ------: |
 	`)
-	fmt.Print(header)
+	md := fmt.Sprint(header)
 
 	for _, v := range c {
-		fmt.Fprintf(
-			os.Stdout,
+		md += fmt.Sprintf(
 			"| %-30s | %7d | %7d | %7d | %7d |\n",
 			v.Repository,
 			v.CommitCount,
@@ -27,4 +25,6 @@ func WriteMarkdown(c []github.AggregatedContributionsCollection) {
 			v.PullRequestReviewCount,
 		)
 	}
+
+	return md
 }
