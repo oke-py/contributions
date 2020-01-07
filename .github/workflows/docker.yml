@@ -1,0 +1,19 @@
+name: docker push
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - "v*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker push
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: okepy/contribution
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tag_names: true
