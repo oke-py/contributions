@@ -7,24 +7,8 @@ count up GitHub contributions by repositories
 
 ## Usage
 
-### build
+Generate a token from https://github.com/settings/tokens.
 
 ```
-git clone https://github.com/oke-py/contributions.git
-cd contributions
-make build
-```
-
-### export GITHUB_TOKEN
-
-Generate a new token from https://github.com/settings/tokens and export it.
-
-```
-export GITHUB_TOKEN=<YOUR GITHUB TOKEN>
-```
-
-### run
-
-```
-./bin/contribution -u <GITHUB ACCOUNT> -m 2020/1
+docker run -e GITHUB_TOKEN=<YOUR GITHUB TOKEN> okepy/contribution -u <YOUR GITHUB ACCOUNT> -m 2020/1
 ```
