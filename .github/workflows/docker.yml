@@ -3,7 +3,8 @@ on:
   push:
     branches:
       - master
-      - docker-image
+    tags:
+      - "v*"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,3 +16,4 @@ jobs:
         name: okepy/contribution
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        tag_names: true
