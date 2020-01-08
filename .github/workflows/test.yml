@@ -60,3 +60,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage.lcov
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v1
+      -
+        name: Lint Dockerfile
+        run: docker run --rm -i hadolint/hadolint hadolint - --ignore DL3006 < Dockerfile
