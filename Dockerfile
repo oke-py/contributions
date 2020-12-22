@@ -1,4 +1,4 @@
-FROM golang:1.13 as builder
+FROM golang:1.15 as builder
 
 WORKDIR /go/src/github.com/oke-py/contributions
 COPY . /go/src/github.com/oke-py/contributions
