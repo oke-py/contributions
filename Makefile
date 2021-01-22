@@ -15,7 +15,7 @@ fmt:
 	$(GO) fmt ./pkg/... ./cmd/...
 
 lint:
-	(which $(GOBIN)/golangci-lint || go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.21.0)
+	(which $(GOBIN)/golangci-lint || go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.35.2)
 	$(GOBIN)/golangci-lint run ./...
 
 sec:
