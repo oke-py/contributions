@@ -12,3 +12,16 @@ Generate a token from https://github.com/settings/tokens.
 ```
 docker run -e GITHUB_TOKEN=<YOUR GITHUB TOKEN> okepy/contribution -u <YOUR GITHUB ACCOUNT> -m 2020/1
 ```
+
+## Sample
+
+```
+docker run -e GITHUB_TOKEN=<MY GITHUB TOKEN> okepy/contribution -u oke-py -m 2021/2
+| Repository                     | Commits | Issues  | PRs     | Reviews |
+| ------------------------------ | ------: | ------: | ------: | ------: |
+| aquasecurity/kube-bench        |       1 |       0 |       1 |       0 |
+| kubernetes/enhancements        |       1 |       0 |       1 |       0 |
+| kubernetes/website             |       8 |       5 |       8 |       2 |
+| oke-py/issue-creator           |       1 |       0 |       0 |       0 |
+| open-policy-agent/conftest     |       0 |       2 |       0 |       0 |
+```
