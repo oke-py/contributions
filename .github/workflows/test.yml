@@ -69,3 +69,23 @@ jobs:
       -
         name: Lint Dockerfile
         run: docker run --rm -i hadolint/hadolint hadolint - --ignore DL3006 < Dockerfile
+  vuln:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Build an image from Dockerfile
+        run: |
+          docker build -t docker.io/okepy/contribution:${{ github.sha }} .
+      -
+        name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'docker.io/okepy/contribution:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
