@@ -15,11 +15,11 @@ fmt:
 	$(GO) fmt ./pkg/... ./cmd/...
 
 lint:
-	(which $(GOBIN)/golangci-lint || go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.35.2)
+	(which $(GOBIN)/golangci-lint || go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.45.2)
 	$(GOBIN)/golangci-lint run ./...
 
 sec:
-	(which $(GOBIN)/gosec || go get github.com/securego/gosec/cmd/gosec)
+	(which $(GOBIN)/gosec || go install github.com/securego/gosec/cmd/gosec)
 	$(GOBIN)/gosec ./pkg/... ./cmd/...
 
 test:
