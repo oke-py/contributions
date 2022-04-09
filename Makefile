@@ -1,7 +1,7 @@
 GO := GO111MODULE=on go
 GOBIN := $(shell go env GOPATH)/bin
 
-all: fix vet fmt lint test build tidy
+all: fix vet fmt test build tidy
 
 build:
 	$(GO) build -o bin/contribution cmd/main.go
@@ -13,10 +13,6 @@ fix:
 .PHONY: fmt
 fmt:
 	$(GO) fmt ./pkg/... ./cmd/...
-
-lint:
-	(which $(GOBIN)/golangci-lint || go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.45.2)
-	$(GOBIN)/golangci-lint run ./...
 
 test:
 	$(GO) test -v -covermode=count -coverprofile=coverage.out ./...
