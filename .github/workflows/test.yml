@@ -33,8 +33,10 @@ jobs:
         with:
           go-version: '1.17.7'
       -
-        name: Run gosec
-        run: make sec
+        name: Run Gosec Security Scanner
+        uses: securego/gosec@v2.11.0
+        with:
+          args: ./...
   test:
     runs-on: ubuntu-latest
     steps:
