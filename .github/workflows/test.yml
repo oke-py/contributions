@@ -12,7 +12,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       -
         name: Set up Go
         uses: actions/setup-go@v3
@@ -28,7 +28,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       -
         name: Set up Go
         uses: actions/setup-go@v3
@@ -46,7 +46,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       -
         name: Set up Go
         uses: actions/setup-go@v3
@@ -71,7 +71,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       -
         name: Lint Dockerfile
         run: docker run --rm -i hadolint/hadolint hadolint - --ignore DL3006 < Dockerfile
@@ -80,7 +80,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       -
         name: Build an image from Dockerfile
         run: |
