@@ -9,6 +9,8 @@ count up GitHub contributions by repositories
 
 Generate a token from https://github.com/settings/tokens.
 
+When using a Fine-grained token, you only need to grant "Events: Read-only" permission in Account Permissions. No repository permissions are required.
+
 ```
 docker run -e GITHUB_TOKEN=<YOUR GITHUB TOKEN> okepy/contribution -u <YOUR GITHUB ACCOUNT> -m 2020/1
 ```
