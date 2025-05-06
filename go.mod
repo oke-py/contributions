@@ -1,6 +1,6 @@
 module github.com/oke-py/contributions
 
-go 1.19
+go 1.24
 
 require (
 	github.com/MakeNowJust/heredoc v1.0.0
